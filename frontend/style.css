@@ -1,0 +1,76 @@
+/* Estils personalitzats per al Gestor de Llibres */
+
+body { 
+    margin-top: 50px; 
+    background-color: #f4f7f6;
+    font-family: 'Raleway', Helvetica, Arial, sans-serif;
+}
+
+.container { 
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h2 {
+    margin-bottom: 5px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+/* Estils de les tarjetes de llibres */
+.book-card { 
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.book-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.book-info {
+    flex-grow: 1;
+}
+
+.book-info strong {
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.tag-pendent { background: #ffeaa7; color: #d35400; }
+.tag-llegit { background: #55efc4; color: #00b894; }
+
+.btn-delete {
+    background-color: #ff7675 !important;
+    color: white !important;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background-color: #d63031 !important;
+}

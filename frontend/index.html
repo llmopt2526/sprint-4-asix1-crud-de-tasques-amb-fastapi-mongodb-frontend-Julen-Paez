@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Llibres - Sprint 4</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <section class="header">
+            <h2>Gestor de Llibres</h2>
+            <p>Sprint 4 – CRUD FastAPI + MongoDB</p>
+        </section>
+        <hr>
+        <div class="row">
+            <div class="six columns">
+                <label for="titol">Títol del llibre</label>
+                <input class="u-full-width" type="text" id="titol">
+            </div>
+            <div class="six columns">
+                <label for="autor">Autor</label>
+                <input class="u-full-width" type="text" id="autor">
+            </div>
+        </div>
+        <div class="row">
+            <div class="four columns">
+                <label for="estat">Estat</label>
+                <select id="estat" class="u-full-width">
+                    <option value="pendent">Pendent</option>
+                    <option value="llegit">Llegit</option>
+                </select>
+            </div>
+            <div class="four columns">
+                <label for="valoracio">Valoració (0-5)</label>
+                <input class="u-full-width" type="number" id="valoracio" min="0" max="5" value="0">
+            </div>
+            <div class="four columns">
+                <label for="categoria">Categoria</label>
+                <input class="u-full-width" type="text" id="categoria">
+            </div>
+        </div>
+        <label for="persona">Assignat a (Persona)</label>
+        <input class="u-full-width" type="text" id="persona">
+        <button id="submit-btn" class="button-primary u-full-width" onclick="saveBook()">Afegir Llibre</button>
+        <hr>
+        <h4>Llistat de Llibres</h4>
+        <div id="book-list"></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
