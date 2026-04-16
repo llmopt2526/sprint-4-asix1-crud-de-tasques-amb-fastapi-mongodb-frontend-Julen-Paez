@@ -1,80 +1,125 @@
+// # URL de l'API
 const API_URL = "http://127.0.0.1:8000/books";
-let editingId = null; // Variable para saber si estamos editando
+let currentEditId = null;
+
+// # Carrega inicial de dades
+document.addEventListener("DOMContentLoaded", () => {
+    fetchBooks();
+});
 
 async function fetchBooks() {
-    const res = await fetch(API_URL);
-    const books = await res.json();
-    const list = document.getElementById('book-list');
-    list.innerHTML = '';
-    books.forEach(book => {
-        list.innerHTML += `
-            <div class="book-card" style="border: 1px solid #eee; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
-                <strong>${book.titol}</strong> - ${book.autor} (${book.estat})
-                <br><small>Cat: ${book.categoria} | Per: ${book.persona} | Nota: ${book.valoracio}/5</small>
-                <div style="float:right">
-                    <button onclick="prepareEdit('${book._id}', '${book.titol}', '${book.autor}', '${book.estat}', ${book.valoracio}, '${book.categoria}', '${book.persona}')">Editar</button>
-                    <button onclick="deleteBook('${book._id}')" class="button">Eliminar</button>
-                </div>
-                <div style="clear:both"></div>
-            </div>
-        `;
-    });
-}
-
-// Función para subir los datos al formulario
-function prepareEdit(id, titol, autor, estat, valoracio, categoria, persona) {
-    editingId = id;
-    document.getElementById('titol').value = titol;
-    document.getElementById('autor').value = autor;
-    document.getElementById('estat').value = estat;
-    document.getElementById('valoracio').value = valoracio;
-    document.getElementById('categoria').value = categoria;
-    document.getElementById('persona').value = persona;
-
-    document.getElementById('submit-btn').innerText = "Guardar Canvis";
-    window.scrollTo(0, 0); // Sube al formulario para que el usuario lo vea
-}
-
-async function saveBook() {
-    const book = {
-        titol: document.getElementById('titol').value,
-        autor: document.getElementById('autor').value,
-        estat: document.getElementById('estat').value,
-        valoracio: parseInt(document.getElementById('valoracio').value),
-        categoria: document.getElementById('categoria').value,
-        persona: document.getElementById('persona').value
-    };
-
-    const method = editingId ? 'PUT' : 'POST';
-    const url = editingId ? `${API_URL}/${editingId}` : API_URL;
-
-    await fetch(url, {
-        method: method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(book)
-    });
-
-    // Resetear formulario y estado
-    editingId = null;
-    document.getElementById('submit-btn').innerText = "Afegir Llibre";
-    clearForm();
-    fetchBooks();
-}
-
-function clearForm() {
-    document.getElementById('titol').value = '';
-    document.getElementById('autor').value = '';
-    document.getElementById('estat').value = 'pendent';
-    document.getElementById('valoracio').value = 0;
-    document.getElementById('categoria').value = '';
-    document.getElementById('persona').value = '';
-}
-
-async function deleteBook(id) {
-    if(confirm("Segur que vols eliminar aquest llibre?")) {
-        await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-        fetchBooks();
+    try {
+        const response = await fetch(API_URL);
+        const books = await response.json();
+        renderBooks(books);
+    } catch (error) {
+        console.error("Error en carregar llibres:", error);
     }
 }
 
-window.onload = fetchBooks;
+async function saveBook() {
+    // # Captura de valors i eliminacio d'espais en blanc
+    const titol = document.getElementById("titol").value.trim();
+    const autor = document.getElementById("autor").value.trim();
+    const estat = document.getElementById("estat").value;
+    const valoracio = document.getElementById("valoracio").value;
+    const categoria = document.getElementById("categoria").value.trim();
+    const persona = document.getElementById("persona").value.trim();
+
+    // # Validacio de camps obligatoris al frontend
+    if (!titol || !autor || !categoria || !persona) {
+        alert("Tots els camps son obligatoris per a poder desar el llibre.");
+        return;
+    }
+
+    const bookData = {
+        titol,
+        autor,
+        estat,
+        valoracio: parseInt(valoracio),
+        categoria,
+        persona
+    };
+
+    try {
+        let response;
+        if (currentEditId) {
+            // # Mode edicio
+            response = await fetch(`${API_URL}/${currentEditId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(bookData)
+            });
+            currentEditId = null;
+            document.getElementById("submit-btn").innerText = "Afegir Llibre";
+        } else {
+            // # Mode creacio
+            response = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(bookData)
+            });
+        }
+
+        if (response.ok) {
+            clearForm();
+            fetchBooks();
+        }
+    } catch (error) {
+        console.error("Error en desar el llibre:", error);
+    }
+}
+
+async function deleteBook(id) {
+    if (confirm("Vols eliminar aquest llibre?")) {
+        try {
+            const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+            if (response.ok) fetchBooks();
+        } catch (error) {
+            console.error("Error en eliminar:", error);
+        }
+    }
+}
+
+function editBook(id, titol, autor, estat, valoracio, categoria, persona) {
+    document.getElementById("titol").value = titol;
+    document.getElementById("autor").value = autor;
+    document.getElementById("estat").value = estat;
+    document.getElementById("valoracio").value = valoracio;
+    document.getElementById("categoria").value = categoria;
+    document.getElementById("persona").value = persona;
+
+    currentEditId = id;
+    document.getElementById("submit-btn").innerText = "Actualitzar Llibre";
+    window.scrollTo(0, 0);
+}
+
+function clearForm() {
+    document.getElementById("titol").value = "";
+    document.getElementById("autor").value = "";
+    document.getElementById("valoracio").value = "0";
+    document.getElementById("categoria").value = "";
+    document.getElementById("persona").value = "";
+}
+
+function renderBooks(books) {
+    const list = document.getElementById("book-list");
+    list.innerHTML = "";
+
+    books.forEach(book => {
+        const div = document.createElement("div");
+        div.className = "book-card";
+        div.innerHTML = `
+            <div>
+                <strong>${book.titol}</strong> - ${book.autor} <br>
+                <small>Estat: ${book.estat} | Categoria: ${book.categoria} | Per: ${book.persona}</small> <br>
+                <span>Valoracio: ${book.valoracio} / 5</span>
+            </div>
+            <div class="actions">
+                <button class="button" onclick="editBook('${book._id}', '${book.titol}', '${book.autor}', '${book.estat}', ${book.valoracio}, '${book.categoria}', '${book.persona}')">Editar</button>
+                <button class="button button-danger" onclick="deleteBook('${book._id}')">Eliminar</button>
+            </div>
+        `;
+        list.appendChild(div);
+    });
+}

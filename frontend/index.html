@@ -10,18 +10,19 @@
 <body>
     <div class="container">
         <section class="header">
-            <h2> Gestor de Llibres</h2>
-            <p>Sprint 4 – CRUD FastAPI + MongoDB</p>
+            <h2>Gestor de Llibres</h2>
+            <p>Sprint 4 - CRUD FastAPI + MongoDB</p>
         </section>
         <hr>
+        
         <div class="row">
             <div class="six columns">
-                <label for="titol">Títol del llibre</label>
-                <input class="u-full-width" type="text" id="titol">
+                <label for="titol">Titol del llibre</label>
+                <input class="u-full-width" type="text" id="titol" required>
             </div>
             <div class="six columns">
                 <label for="autor">Autor</label>
-                <input class="u-full-width" type="text" id="autor">
+                <input class="u-full-width" type="text" id="autor" required>
             </div>
         </div>
         <div class="row">
@@ -33,16 +34,16 @@
                 </select>
             </div>
             <div class="four columns">
-                <label for="valoracio">Valoració (0-5)</label>
+                <label for="valoracio">Valoracio (0-5)</label>
                 <input class="u-full-width" type="number" id="valoracio" min="0" max="5" value="0">
             </div>
             <div class="four columns">
                 <label for="categoria">Categoria</label>
-                <input class="u-full-width" type="text" id="categoria">
+                <input class="u-full-width" type="text" id="categoria" required>
             </div>
         </div>
         <label for="persona">Assignat a (Persona)</label>
-        <input class="u-full-width" type="text" id="persona">
+        <input class="u-full-width" type="text" id="persona" required>
         
         <button id="submit-btn" class="button-primary u-full-width" onclick="saveBook()">Afegir Llibre</button>
 
