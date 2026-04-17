@@ -1,0 +1,85 @@
+/* # Estils personalitzats per al Gestor de Llibres */
+
+body { 
+    margin-top: 50px;  /* # Espai superior del body */
+    background-color: #f4f7f6;  /* # Color de fons suau */
+    font-family: 'Raleway', Helvetica, Arial, sans-serif;  /* # Tipografia */
+}
+
+.container { 
+    background: #ffffff;  /* # Fons blanc del contenidor */
+    padding: 40px;  /* # Espai interior */
+    border-radius: 12px;  /* # Cantonades arrodonides */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);  /* # Ombra suau */
+}
+
+.header {
+    text-align: center;  /* # Centra el text */
+    margin-bottom: 30px;  /* # Espai inferior */
+}
+
+.header h2 {
+    margin-bottom: 5px;  /* # Espai sota el títol */
+    color: #2c3e50;  /* # Color del text */
+    font-weight: bold;  /* # Text en negreta */
+}
+
+/* # Estils de les targetes de llibres */
+.book-card { 
+    background: #fff;  /* # Fons blanc */
+    border: 1px solid #e1e1e1;  /* # Borde gris clar */
+    border-radius: 8px;  /* # Cantonades arrodonides */
+    padding: 20px;  /* # Espai interior */
+    margin-bottom: 15px;  /* # Separació entre targetes */
+    display: flex;  /* # Layout flexible */
+    justify-content: space-between;  /* # Espai entre elements */
+    align-items: center;  /* # Alineació vertical */
+    transition: transform 0.2s, box-shadow 0.2s;  /* # Animació suau */
+}
+
+.book-card:hover {
+    transform: translateY(-2px);  /* # Lleuger moviment cap amunt */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);  /* # Ombra en hover */
+}
+
+.book-info {
+    flex-grow: 1;  /* # Ocupa tot l’espai disponible */
+}
+
+.book-info strong {
+    font-size: 1.8rem;  /* # Mida gran del títol */
+    color: #333;  /* # Color fosc */
+}
+
+.tag {
+    display: inline-block;  /* # Element en línia amb mida */
+    padding: 2px 8px;  /* # Espai interior */
+    border-radius: 4px;  /* # Cantonades arrodonides */
+    font-size: 1.1rem;  /* # Mida del text */
+    text-transform: uppercase;  /* # Text en majúscules */
+    font-weight: bold;  /* # Negreta */
+    margin-left: 10px;  /* # Separació a l’esquerra */
+}
+
+/* # Etiquetes segons estat */
+.tag-pendent { 
+    background: #ffeaa7;  /* # Fons groc */
+    color: #d35400;  /* # Text taronja */
+}
+
+.tag-llegit { 
+    background: #55efc4;  /* # Fons verd */
+    color: #00b894;  /* # Text verd fosc */
+}
+
+/* # Botó d’eliminar */
+.btn-delete {
+    background-color: #ff7675 !important;  /* # Color vermell */
+    color: white !important;  /* # Text blanc */
+    border: none;  /* # Sense borde */
+    cursor: pointer;  /* # Cursor de clic */
+}
+
+.btn-delete:hover {
+    background-color: #d63031 !important;  /* # Vermell més fosc en hover */
+}

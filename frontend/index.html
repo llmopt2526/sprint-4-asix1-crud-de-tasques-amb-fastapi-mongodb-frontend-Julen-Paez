@@ -1,9 +1,79 @@
-<!doctype html>
-<html>
-  <head>
-    <title>This is the title of the webpage!</title>
-  </head>
-  <body>
-    <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
-  </body>
+<!DOCTYPE html> <!-- # Defineix que és un document HTML5 -->
+<html lang="ca"> <!-- # Indica que l’idioma és català -->
+
+<head>
+    <meta charset="UTF-8"> <!-- # Permet caràcters especials -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- # Fa la web responsive -->
+    <title>Gestor de Llibres - Sprint 4</title> <!-- # Títol de la pestanya -->
+
+    <!-- # Framework CSS Skeleton per a estils bàsics -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    
+    <!-- # Full d’estils propi -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container"> <!-- # Contenidor principal -->
+
+        <!-- # Capçalera de l’aplicació -->
+        <section class="header">
+            <h2>Gestor de Llibres</h2> <!-- # Títol principal -->
+            <p>Sprint 4 - CRUD FastAPI + MongoDB</p> <!-- # Descripció del projecte -->
+        </section>
+
+        <hr> <!-- # Línia separadora -->
+
+        <!-- # Primera fila: títol i autor -->
+        <div class="row">
+            <div class="six columns">
+                <label for="titol">Titol del llibre</label>
+                <input class="u-full-width" type="text" id="titol" required> <!-- # Input del títol -->
+            </div>
+            <div class="six columns">
+                <label for="autor">Autor</label>
+                <input class="u-full-width" type="text" id="autor" required> <!-- # Input de l’autor -->
+            </div>
+        </div>
+
+        <!-- # Segona fila: estat, valoració i categoria -->
+        <div class="row">
+            <div class="four columns">
+                <label for="estat">Estat</label>
+                <select id="estat" class="u-full-width"> <!-- # Selector de l’estat -->
+                    <option value="pendent">Pendent</option> <!-- # Opció pendent -->
+                    <option value="llegit">Llegit</option> <!-- # Opció llegit -->
+                </select>
+            </div>
+            <div class="four columns">
+                <label for="valoracio">Valoracio (0-5)</label>
+                <input class="u-full-width" type="number" id="valoracio" min="0" max="5" value="0"> <!-- # Valoració del llibre -->
+            </div>
+            <div class="four columns">
+                <label for="categoria">Categoria</label>
+                <input class="u-full-width" type="text" id="categoria" required> <!-- # Categoria del llibre -->
+            </div>
+        </div>
+
+        <!-- # Persona a qui s’assigna el llibre -->
+        <label for="persona">Assignat a (Persona)</label>
+        <input class="u-full-width" type="text" id="persona" required> <!-- # Input de la persona -->
+
+        <!-- # Botó que executa la funció saveBook() del JavaScript -->
+        <button id="submit-btn" class="button-primary u-full-width" onclick="saveBook()">
+            Afegir Llibre
+        </button>
+
+        <hr> <!-- # Separador -->
+
+        <!-- # Secció de llistat de llibres -->
+        <h4>Llistat de Llibres</h4>
+
+        <!-- # Aquí es mostraran els llibres dinàmicament -->
+        <div id="book-list"></div>
+    </div>
+
+    <!-- # Arxiu JavaScript amb la lògica -->
+    <script src="app.js"></script>
+</body>
 </html>
